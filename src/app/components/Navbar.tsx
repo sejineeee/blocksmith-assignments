@@ -2,13 +2,13 @@ import Link from "next/link";
 
 const NavBar = (): JSX.Element => {
   return (
-    <nav>
+    <nav className="navigation">
       <ul>
         <li>
-          <Link href="/">공지</Link>
+          <Link href="/notice">공지</Link>
         </li>
-        <li>알림</li>
-        <li>내 정보</li>
+        <li className="notification">알림</li>
+        <li className="my-data">내 정보</li>
       </ul>
     </nav>
   );
