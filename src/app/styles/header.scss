@@ -1,0 +1,58 @@
+.header {
+  width: 1600px;
+  background-color: #001e4c;
+  padding: 10px 8px 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  color: #ffffff;
+
+  div {
+    width: 259px;
+    height: 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .logo {
+      a {
+        display: block;
+        background: url("/assets/images/logoBlocksmith\ 1.png") no-repeat;
+        background-size: contain;
+        width: 166px;
+        height: 26px;
+      }
+
+      .logo-text {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        clip-path: polygon(0 0, 0 0, 0 0);
+      }
+    }
+
+    .home {
+      font-size: 1.8rem;
+    }
+  }
+
+  .navigation {
+    font-size: 1.4rem;
+
+    ul {
+      display: flex;
+
+      li {
+        a {
+          display: block;
+          padding: 10px 12px;
+          font-weight: 600;
+        }
+      }
+      li:not(:first-child) {
+        padding: 10px 12px;
+      }
+    }
+  }
+}
