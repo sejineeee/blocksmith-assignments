@@ -1,0 +1,41 @@
+// padding, border-radius
+
+.btn {
+  padding: 8px 12px;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 1.6rem;
+  margin-right: 16px;
+}
+
+.btn.list-view {
+  height: 40px;
+  border: 0.5px solid #dedede;
+  background-color: #ffffff;
+  font-weight: 500;
+}
+
+.btn.modify {
+  height: 38px;
+  background-color: #ff5c00;
+  color: #ffffff;
+}
+
+.btn.delete {
+  height: 38px;
+  background-color: #ff0000;
+  color: #ffffff;
+}
+
+.btn.save {
+  height: 38px;
+  background-color: #ff5c00;
+  color: #ffffff;
+}
+
+.btn.cancel {
+  height: 40px;
+  border: 0.5px solid #dedede;
+  background-color: #ffffff;
+  font-weight: 500;
+}
