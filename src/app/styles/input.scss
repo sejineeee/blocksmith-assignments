@@ -1,0 +1,25 @@
+.search-bar {
+  width: 280px;
+  height: 40px;
+  padding: 8px 12px;
+  border: 0.8px solid #222222;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+
+  input {
+    width: 100%;
+    font-size: 1.6rem;
+    margin-right: 8px;
+    outline: none;
+    color: #222222;
+  }
+
+  .magnifier {
+    width: 24px;
+    height: 24px;
+    background: url("/assets/images/Search_common.png") no-repeat;
+    background-size: contain;
+    flex-shrink: 0;
+  }
+}
