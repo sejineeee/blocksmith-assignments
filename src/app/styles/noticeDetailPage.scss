@@ -1,0 +1,36 @@
+.notice-detail-page {
+  width: 800px;
+  margin: 0 auto;
+  padding: 60px 0px 64px;
+
+  .detail-page-header {
+    font-size: 1.6rem;
+    font-weight: 600;
+  }
+
+  .notice-detail-meta {
+    padding: 24px 0 32px;
+    .title {
+      font-size: 3.2rem;
+      font-weight: 600;
+      line-height: 122%;
+      letter-spacing: -0.16px;
+      padding-bottom: 16px;
+    }
+
+    .created-at {
+      color: #707070;
+      font-size: 1.6rem;
+    }
+  }
+
+  .content {
+    padding: 32px 0;
+    border-top: 1px solid #dedede;
+    border-bottom: 1px solid #dedede;
+  }
+
+  .action-buttons {
+    padding-top: 16px;
+  }
+}
