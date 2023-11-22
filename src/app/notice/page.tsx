@@ -39,6 +39,7 @@ const Notice = (): JSX.Element => {
           placeholder="검색어"
           disabled={false}
           onChange={handleChange}
+          magnifier={true}
         />
       </div>
       {list.length ? (
