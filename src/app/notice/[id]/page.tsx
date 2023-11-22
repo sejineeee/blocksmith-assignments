@@ -19,6 +19,7 @@ const DetailPage = ({
     title: "",
     content: "",
   });
+
   const getNoticeItem = async () => {
     try {
       const response = await axios.get(`http://localhost:9999/notice/${id}`);
