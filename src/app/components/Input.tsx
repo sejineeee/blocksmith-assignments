@@ -8,6 +8,7 @@ interface InputProps {
   placeholder: string;
   disabled: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  magnifier: boolean;
 }
 
 const Input = ({
@@ -16,6 +17,7 @@ const Input = ({
   placeholder,
   disabled,
   onChange,
+  magnifier,
 }: InputProps): JSX.Element => {
   return (
     <div className="search-bar">
@@ -26,7 +28,9 @@ const Input = ({
         disabled={disabled}
         onChange={onChange}
       />
-      <button className="magnifier" type="button"></button>
+      {
+        magnifier && <button className="magnifier" type="button"></button>
+      }
     </div>
   );
 };
