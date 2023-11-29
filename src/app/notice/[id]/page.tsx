@@ -15,8 +15,9 @@ const DetailPage = ({
   params: { id: number };
 }): JSX.Element => {
   const [data, setData] = useState<Notice>({
-    id: 1,
+    id: "",
     title: "",
+    date: "",
     content: "",
   });
 
