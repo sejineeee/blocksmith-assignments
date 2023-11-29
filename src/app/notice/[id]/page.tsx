@@ -34,8 +34,6 @@ const DetailPage = ({
     getNoticeItem();
   }, []);
 
-  console.log(data);
-
   const handleClick = () => {};
   return (
     <div className="notice-detail-page">
