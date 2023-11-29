@@ -40,9 +40,9 @@ const DetailPage = ({
       <h2 className="detail-page-header">공지사항</h2>
       <div className="notice-detail-meta">
         <p className="title">{data.title}</p>
-        <p className="created-at">2022. 12. 24</p>
+        <p className="created-at">{data.date}</p>
       </div>
-      <div className="content">{data.content}</div>
+      <div className="content" dangerouslySetInnerHTML={{__html: data.content}}></div>
       <div className="action-buttons">
         <Button
           type="button"
