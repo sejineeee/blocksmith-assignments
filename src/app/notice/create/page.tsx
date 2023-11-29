@@ -73,11 +73,17 @@ const Create = (): JSX.Element => {
 
     setDate(date);
   }
-  
+
   const handleSubmit = async () => {
     await createPost();
   };
 
+  const handleCancle = () => {
+    const result = window.confirm('작성하던 것을 취소하겠습니까?');
+    if(result) {
+      router.push('/notice')
+    }
+  }
 
   useEffect(() => {
     createDate();
@@ -114,7 +120,7 @@ const Create = (): JSX.Element => {
           disabled={false}
           name="cancel"
           content="취소"
-          onClick={}
+          onClick={handleCancle}
         />
         <Button
           type="button"
