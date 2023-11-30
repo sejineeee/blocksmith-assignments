@@ -1,5 +1,6 @@
 export interface Notice {
-  id: number;
+  id: string;
   title: string;
+  date: string;
   content: string;
 }
