@@ -8,6 +8,7 @@ import Button from "../../components/Button";
 import { Notice } from "@/types/notice";
 
 import "../../styles/noticeDetailPage.scss";
+import "react-quill/dist/quill.snow.css";
 
 const DetailPage = ({
   params: { id },
@@ -42,7 +43,7 @@ const DetailPage = ({
         <p className="title">{data.title}</p>
         <p className="created-at">{data.date}</p>
       </div>
-      <div className="content" dangerouslySetInnerHTML={{__html: data.content}}></div>
+      <div className="content ql-editor" dangerouslySetInnerHTML={{__html: data.content}}></div>
       <div className="action-buttons">
         <Button
           type="button"
