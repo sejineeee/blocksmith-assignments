@@ -2,13 +2,51 @@
   width: 800px;
   margin: 0 auto;
   padding: 60px 0px 64px;
+
   .notice-heading {
     font-size: 1.6rem;
     font-weight: 600;
     padding-bottom: 24px;
   }
 
+  .create-title {
+    width: 100%;
+    height: auto;
+
+    textarea {
+      width: 100%;
+      resize: none;
+      overflow: hidden;
+      padding: 16px 12px;
+      font-size: 3.2rem;
+      outline: none;
+      border-radius: 6px;
+    }
+  }
+
+  .create-date {
+    margin: 16px 0;
+    font-size: 1.6rem;
+    color: #707070;
+  }
+
   .button-box {
     margin-top: 16px;
+  }
+
+  #editor {
+    .ql-toolbar {
+      border-radius: 6px 6px 0 0;
+      background-color: #f2f2f2;
+    }
+
+    .ql-editor {
+      height: 388px;
+    }
+
+    .ql-container {
+      border-radius: 0 0 6px 6px;
+      font-size: 1.6rem;
+    }
   }
 }
