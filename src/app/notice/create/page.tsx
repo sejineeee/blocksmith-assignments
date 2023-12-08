@@ -1,29 +1,28 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
-import Input from "../../components/Input";
-import Button from "../../components/Button";
+import Button from '../../components/Button';
 
-import ReactQuill from "react-quill";
+import ReactQuill from 'react-quill';
 
-import axios from "axios";
+import axios from 'axios';
 
-import "../../styles/noticeWritePage.scss";
-import "react-quill/dist/quill.snow.css";
+import '../../styles/noticeWritePage.scss';
+import 'react-quill/dist/quill.snow.css';
 
-import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from 'uuid';
 
 const tools = [
-  [{ size: ["small", "false", "large", "huge"] }],
-  [{ font: ["sans-serif", "serif", "monospace"] }],
-  ["bold", "italic", "underline"],
+  [{ size: ['small', 'false', 'large', 'huge'] }],
+  [{ font: ['sans-serif', 'serif', 'monospace'] }],
+  ['bold', 'italic', 'underline'],
   [{ color: [] }, { background: [] }],
-  [{ list: "ordered" }, { list: "bullet" }],
+  [{ list: 'ordered' }, { list: 'bullet' }],
   [{ align: [] }],
-  ["link", "image", "code-block"],
-  [{ direction: "rtl" }],
+  ['link', 'image', 'code-block'],
+  [{ direction: 'rtl' }],
 ];
 
 const modules = {
@@ -31,22 +30,27 @@ const modules = {
 };
 
 const Create = (): JSX.Element => {
-  const [title, setTitle] = useState<string>("");
-  const [content, setContent] = useState<string>("");
-  const [date, setDate] = useState<string>("");
+  const [title, setTitle] = useState<string>('');
+  const [content, setContent] = useState<string>('');
+  const [date, setDate] = useState<string>('');
 
   let myuuid = uuidv4();
 
   const router = useRouter();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTitle(e.target.value);
   };
 
   const createPost = async () => {
     try {
+      if (!title || !content) {
+        // TODO
+        // ERROR 메시지를 안내할 예정임
+        return;
+      }
       const response = await axios.post(
-        "http://localhost:9999/notice/",
+        'http://localhost:9999/notice/',
         {
           id: myuuid,
           title: title,
@@ -55,13 +59,13 @@ const Create = (): JSX.Element => {
         },
         {
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
         }
       );
 
       if (response.status === 200 || response.status === 201) {
-        router.push("/notice");
+        router.push('/notice');
       }
     } catch (error) {
       console.error(error);
@@ -72,7 +76,7 @@ const Create = (): JSX.Element => {
     const date = new Date().toLocaleDateString('ko-KR');
 
     setDate(date);
-  }
+  };
 
   const handleSubmit = async () => {
     await createPost();
@@ -80,28 +84,25 @@ const Create = (): JSX.Element => {
 
   const handleCancle = () => {
     const result = window.confirm('작성하던 것을 취소하겠습니까?');
-    if(result) {
-      router.push('/notice')
+    if (result) {
+      router.push('/notice');
     }
-  }
+  };
 
   useEffect(() => {
     createDate();
-  }, [])
-
+  }, []);
 
   return (
     <div className="notice-write-container">
       <h2 className="notice-heading">공지사항</h2>
-      <div className="create-editor">
-        <Input
-          type="text"
+      <div className="create-title">
+        <textarea
           name="title"
           placeholder="제목"
-          disabled={false}
-          onChange={handleChange}
-          magnifier={false}
-        />
+          maxLength={100}
+          onChange={(e) => handleChange(e)}
+        ></textarea>
       </div>
       <div className="create-date">
         <p>{date}</p>
