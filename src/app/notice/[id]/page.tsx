@@ -48,7 +48,7 @@ const DetailPage = ({
         className="content ql-editor"
         dangerouslySetInnerHTML={{ __html: data.content }}
       ></div>
-      <div className="action-buttons">
+      <div className="buttons">
         <Button
           type="button"
           name="list-view"
