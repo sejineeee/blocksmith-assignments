@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import axios from "axios";
+import axios from 'axios';
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import Button from "../../components/Button";
-import { Notice } from "@/types/notice";
+import Button from '../../components/Button';
+import { Notice } from '@/types/notice';
 
-import "../../styles/noticeDetailPage.scss";
-import "react-quill/dist/quill.snow.css";
+import '../../styles/noticeDetailPage.scss';
+import 'react-quill/dist/quill.snow.css';
 
 const DetailPage = ({
   params: { id },
@@ -16,10 +16,10 @@ const DetailPage = ({
   params: { id: number };
 }): JSX.Element => {
   const [data, setData] = useState<Notice>({
-    id: "",
-    title: "",
-    date: "",
-    content: "",
+    id: '',
+    title: '',
+    date: '',
+    content: '',
   });
 
   const getNoticeItem = async () => {
@@ -36,6 +36,7 @@ const DetailPage = ({
   }, []);
 
   const handleClick = () => {};
+
   return (
     <div className="notice-detail-page">
       <h2 className="detail-page-header">공지사항</h2>
@@ -43,7 +44,10 @@ const DetailPage = ({
         <p className="title">{data.title}</p>
         <p className="created-at">{data.date}</p>
       </div>
-      <div className="content ql-editor" dangerouslySetInnerHTML={{__html: data.content}}></div>
+      <div
+        className="content ql-editor"
+        dangerouslySetInnerHTML={{ __html: data.content }}
+      ></div>
       <div className="action-buttons">
         <Button
           type="button"
