@@ -3,6 +3,7 @@
 import axios from 'axios';
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import Button from '../../components/Button';
 import { Notice } from '@/types/notice';
@@ -22,6 +23,8 @@ const DetailPage = ({
     content: '',
   });
 
+  const router = useRouter();
+
   const getNoticeItem = async () => {
     try {
       const response = await axios.get(`http://localhost:9999/notice/${id}`);
@@ -35,7 +38,36 @@ const DetailPage = ({
     getNoticeItem();
   }, []);
 
-  const handleClick = () => {};
+  const deleteData = async () => {
+    try {
+      const response = await axios.delete(`http://localhost:9999/notice/${id}`);
+      router.push('/notice');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const { target } = e;
+
+    if (target instanceof HTMLButtonElement) {
+      const { name } = target;
+
+      if (name === 'list-view') {
+        router.push('/notice');
+      } else if (name === 'modify') {
+        const result = window.confirm('내용을 수정하시겠습니까?');
+        if (result) {
+          router.push('/modify');
+        }
+      } else if (name === 'delete') {
+        const result = window.confirm('정말 삭제하시겠습니까?');
+        if (result) {
+          deleteData();
+        }
+      }
+    }
+  };
 
   return (
     <div className="notice-detail-page">
