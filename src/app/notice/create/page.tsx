@@ -3,31 +3,14 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-import Button from '../../components/Button';
-
-import ReactQuill from 'react-quill';
-
 import axios from 'axios';
 
+import Button from '../../components/Button';
+import Editor from '../../components/Editor';
+
 import '../../styles/noticeWritePage.scss';
-import 'react-quill/dist/quill.snow.css';
 
 import { v4 as uuidv4 } from 'uuid';
-
-const tools = [
-  [{ size: ['small', 'false', 'large', 'huge'] }],
-  [{ font: ['sans-serif', 'serif', 'monospace'] }],
-  ['bold', 'italic', 'underline'],
-  [{ color: [] }, { background: [] }],
-  [{ list: 'ordered' }, { list: 'bullet' }],
-  [{ align: [] }],
-  ['link', 'image', 'code-block'],
-  [{ direction: 'rtl' }],
-];
-
-const modules = {
-  toolbar: tools,
-};
 
 const Create = (): JSX.Element => {
   const [title, setTitle] = useState<string>('');
@@ -107,14 +90,7 @@ const Create = (): JSX.Element => {
       <div className="create-date">
         <p>{date}</p>
       </div>
-      <div id="editor">
-        <ReactQuill
-          modules={modules}
-          theme="snow"
-          value={content}
-          onChange={setContent}
-        />
-      </div>
+      <Editor content={content} setContent={setContent} />
       <div className="button-box">
         <Button
           type="button"
