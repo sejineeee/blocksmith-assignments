@@ -14,7 +14,7 @@ import 'react-quill/dist/quill.snow.css';
 const DetailPage = ({
   params: { id },
 }: {
-  params: { id: number };
+  params: { id: string };
 }): JSX.Element => {
   const [data, setData] = useState<Notice>({
     id: '',
