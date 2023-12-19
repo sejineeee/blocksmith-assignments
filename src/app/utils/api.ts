@@ -51,3 +51,11 @@ export const updateNoticeItem = async (id: string, data: Notice) => {
     console.error(error);
   }
 };
+
+export const deleteNoticeItem = async (id: string) => {
+  try {
+    const response = await axios.delete(`http://localhost:9999/notice/${id}`);
+  } catch (error) {
+    console.error(error);
+  }
+};
