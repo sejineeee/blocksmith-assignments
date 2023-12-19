@@ -30,3 +30,12 @@ export const createNotice = async ({ id, title, date, content }: Notice) => {
     console.error(error);
   }
 };
+
+export const getNoticeItem = async (id: string) => {
+  try {
+    const response = await axios.get(`http://localhost:9999/notice/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
