@@ -39,3 +39,14 @@ export const getNoticeItem = async (id: string) => {
     console.error(error);
   }
 };
+
+export const updateNoticeItem = async (id: string, data: Notice) => {
+  try {
+    const response = await axios.patch(
+      `http://localhost:9999/notice/${id}`,
+      data
+    );
+  } catch (error) {
+    console.error(error);
+  }
+};
