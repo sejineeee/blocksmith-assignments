@@ -1,5 +1,6 @@
-import { Notice } from '@/types/notice';
 import axios from 'axios';
+
+import { Notice } from '@/types/notice';
 
 export const getNoticeList = async () => {
   try {
