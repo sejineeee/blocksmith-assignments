@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-import axios from 'axios';
+import { getNoticeItem, updateNoticeItem } from '@/app/utils/api';
 
 import Button from '@/app/components/Button';
 import Editor from '@/app/components/Editor';
@@ -23,28 +23,6 @@ const Modify = ({
     date: '',
     content: '',
   });
-
-  const getNoticeList = async () => {
-    try {
-      const response = await axios.get(`http://localhost:9999/notice/${id}`);
-      setData(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const updateData = async () => {
-    try {
-      const response = await axios.patch(
-        `http://localhost:9999/notice/${id}`,
-        data
-      );
-
-      router.push(`http://localhost:3000/notice/${id}`);
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -66,11 +44,13 @@ const Modify = ({
   };
 
   const handleSubmit = () => {
-    updateData();
+    updateNoticeItem(id, data);
+
+    router.push(`http://localhost:3000/notice/${id}`);
   };
 
   useEffect(() => {
-    getNoticeList();
+    getNoticeItem(id).then(setData);
   }, []);
 
   return (

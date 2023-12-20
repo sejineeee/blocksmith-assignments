@@ -1,12 +1,12 @@
 'use client';
 
-import axios from 'axios';
-
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import Button from '../../components/Button';
 import { Notice } from '@/types/notice';
+
+import { deleteNoticeItem, getNoticeItem } from '@/app/utils/api';
 
 import '../../styles/noticeDetailPage.scss';
 import 'react-quill/dist/quill.snow.css';
@@ -14,7 +14,7 @@ import 'react-quill/dist/quill.snow.css';
 const DetailPage = ({
   params: { id },
 }: {
-  params: { id: number };
+  params: { id: string };
 }): JSX.Element => {
   const [data, setData] = useState<Notice>({
     id: '',
@@ -25,25 +25,15 @@ const DetailPage = ({
 
   const router = useRouter();
 
-  const getNoticeItem = async () => {
-    try {
-      const response = await axios.get(`http://localhost:9999/notice/${id}`);
-      setData(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   useEffect(() => {
-    getNoticeItem();
+    getNoticeItem(id).then(setData);
   }, []);
 
-  const deleteData = async () => {
-    try {
-      const response = await axios.delete(`http://localhost:9999/notice/${id}`);
+  const handleDelete = async () => {
+    const response = await deleteNoticeItem(id);
+
+    if (response.stauts === 200) {
       router.push('/notice');
-    } catch (error) {
-      console.error(error);
     }
   };
 
@@ -63,7 +53,7 @@ const DetailPage = ({
       } else if (name === 'delete') {
         const result = window.confirm('정말 삭제하시겠습니까?');
         if (result) {
-          deleteData();
+          handleDelete();
         }
       }
     }
