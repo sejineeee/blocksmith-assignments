@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import Button from '../../components/Button';
 import { Notice } from '@/types/notice';
@@ -24,6 +24,7 @@ const DetailPage = ({
   });
 
   const router = useRouter();
+  const path = usePathname();
 
   useEffect(() => {
     getNoticeItem(id).then(setData);
@@ -32,7 +33,7 @@ const DetailPage = ({
   const handleDelete = async () => {
     const response = await deleteNoticeItem(id);
 
-    if (response.stauts === 200) {
+    if (response.status === 200) {
       router.push('/notice');
     }
   };
@@ -48,7 +49,7 @@ const DetailPage = ({
       } else if (name === 'modify') {
         const result = window.confirm('내용을 수정하시겠습니까?');
         if (result) {
-          router.push('/modify');
+          router.push(`${path}/modify`);
         }
       } else if (name === 'delete') {
         const result = window.confirm('정말 삭제하시겠습니까?');
