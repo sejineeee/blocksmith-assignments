@@ -3,56 +3,25 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-import axios from 'axios';
-
 import Button from '../../components/Button';
 import Editor from '../../components/Editor';
 
 import '../../styles/noticeWritePage.scss';
 
 import { v4 as uuidv4 } from 'uuid';
+import { createNotice } from '@/app/utils/api';
 
 const Create = (): JSX.Element => {
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const [date, setDate] = useState<string>('');
 
-  let myuuid = uuidv4();
+  let id = uuidv4();
 
   const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTitle(e.target.value);
-  };
-
-  const createPost = async () => {
-    try {
-      if (!title || !content) {
-        // TODO
-        // ERROR 메시지를 안내할 예정임
-        return;
-      }
-      const response = await axios.post(
-        'http://localhost:9999/notice/',
-        {
-          id: myuuid,
-          title: title,
-          date: date,
-          content: content,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-
-      if (response.status === 200 || response.status === 201) {
-        router.push('/notice');
-      }
-    } catch (error) {
-      console.error(error);
-    }
   };
 
   const createDate = (): void => {
@@ -62,7 +31,23 @@ const Create = (): JSX.Element => {
   };
 
   const handleSubmit = async () => {
-    await createPost();
+    if (!title || !content) {
+      // TODO : 에러 핸들링 예정
+      return;
+    } else {
+      const response = await createNotice({
+        id,
+        title,
+        date,
+        content,
+      });
+
+      console.log(response);
+
+      if (response.status === 200 || response.status === 201) {
+        router.push('/notice');
+      }
+    }
   };
 
   const handleCancle = () => {
