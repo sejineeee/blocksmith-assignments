@@ -42,8 +42,6 @@ const Create = (): JSX.Element => {
         content,
       });
 
-      console.log(response);
-
       if (response.status === 200 || response.status === 201) {
         router.push('/notice');
       }
