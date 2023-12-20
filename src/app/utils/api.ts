@@ -27,6 +27,8 @@ export const createNotice = async ({ id, title, date, content }: Notice) => {
         },
       }
     );
+
+    return response;
   } catch (error) {
     console.error(error);
   }
@@ -55,6 +57,8 @@ export const updateNoticeItem = async (id: string, data: Notice) => {
 export const deleteNoticeItem = async (id: string) => {
   try {
     const response = await axios.delete(`http://localhost:9999/notice/${id}`);
+
+    return response;
   } catch (error) {
     console.error(error);
   }
