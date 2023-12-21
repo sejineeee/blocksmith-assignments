@@ -20,7 +20,7 @@ const modules = {
 
 interface EditorProps {
   content: string;
-  setContent: React.Dispatch<React.SetStateAction<string>>;
+  setContent: (content: string) => void;
 }
 
 const Editor = ({ content, setContent }: EditorProps): JSX.Element => {

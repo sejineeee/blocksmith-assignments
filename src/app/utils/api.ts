@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { Notice } from '@/types/notice';
+import { Notice, FormData } from '@/types/notice';
 
 export const getNoticeList = async () => {
   try {
@@ -43,7 +43,7 @@ export const getNoticeItem = async (id: string) => {
   }
 };
 
-export const updateNoticeItem = async (id: string, data: Notice) => {
+export const updateNoticeItem = async (id: string, data: FormData) => {
   try {
     const response = await axios.patch(
       `http://localhost:9999/notice/${id}`,
