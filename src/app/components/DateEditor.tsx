@@ -1,20 +1,20 @@
-import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
-const DateEditor = () => {
-  const [startDate, setStartDate] = useState<Date>(new Date());
+interface DateEditorProps {
+  startDate: Date;
+  onChange: React.Dispatch<React.SetStateAction<Date>>;
+}
 
+const DateEditor = ({ startDate, onChange }: DateEditorProps) => {
   return (
-    <div>
-      <DatePicker
-        showIcon
-        selected={startDate}
-        onChange={(date: Date) => setStartDate(date)}
-        dateFormat={'yyyy/MM/dd'}
-      />
-    </div>
+    <DatePicker
+      showIcon
+      selected={startDate}
+      onChange={(date: Date) => onChange(date)}
+      dateFormat={'yyyy/MM/dd'}
+    />
   );
 };
 
