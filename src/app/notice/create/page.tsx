@@ -7,22 +7,47 @@ import Button from '../../components/Button';
 import Editor from '../../components/Editor';
 import DateEditor from '@/app/components/DateEditor';
 
-import '../../styles/noticeWritePage.scss';
-
 import { v4 as uuidv4 } from 'uuid';
 import { createNotice } from '@/app/utils/api';
 
-const Create = (): JSX.Element => {
-  const [title, setTitle] = useState<string>('');
-  const [content, setContent] = useState<string>('');
-  const [startDate, setStartDate] = useState<Date>(new Date());
+import { FormData } from '@/types/notice';
 
-  let id = uuidv4();
+import '../../styles/noticeWritePage.scss';
+
+const Create = (): JSX.Element => {
+  const [formData, setFormData] = useState<FormData>({
+    title: '',
+    content: '',
+    date: new Date(),
+  });
+
+  const { title, content, date } = formData;
 
   const router = useRouter();
 
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setTitle(e.target.value);
+  const handleChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    const { name, value } = e.target;
+
+    setFormData((prevData: FormData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleDateChange = (date: Date) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      date,
+    }));
+  };
+
+  const handleContentChange = (content: string) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      content,
+    }));
   };
 
   const handleSubmit = async () => {
@@ -31,9 +56,9 @@ const Create = (): JSX.Element => {
       return;
     } else {
       const response = await createNotice({
-        id,
+        id: uuidv4(),
         title,
-        date: startDate.toLocaleDateString('ko-KR'),
+        date,
         content,
       });
 
@@ -62,9 +87,9 @@ const Create = (): JSX.Element => {
         ></textarea>
       </div>
       <div className="create-date">
-        <DateEditor startDate={startDate} onChange={setStartDate} />
+        <DateEditor startDate={date} onChange={handleDateChange} />
       </div>
-      <Editor content={content} setContent={setContent} />
+      <Editor content={content} setContent={handleContentChange} />
       <div className="button-box">
         <Button
           type="button"
