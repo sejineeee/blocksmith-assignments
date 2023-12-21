@@ -4,7 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 interface DateEditorProps {
   startDate: Date;
-  onChange: React.Dispatch<React.SetStateAction<Date>>;
+  onChange: (date: Date) => void;
 }
 
 const DateEditor = ({ startDate, onChange }: DateEditorProps) => {
