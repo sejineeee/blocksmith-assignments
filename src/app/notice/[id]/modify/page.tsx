@@ -7,8 +7,11 @@ import { getNoticeItem, updateNoticeItem } from '@/app/utils/api';
 
 import Button from '@/app/components/Button';
 import Editor from '@/app/components/Editor';
+import DateEditor from '@/app/components/DateEditor';
 
-import { Notice } from '@/types/notice';
+import { FormData } from '@/types/notice';
+
+import '../../../styles/noticeWritePage.scss';
 
 const Modify = ({
   params: { id },
@@ -17,25 +20,39 @@ const Modify = ({
 }): JSX.Element => {
   const router = useRouter();
 
-  const [data, setData] = useState<Notice>({
-    id: '',
+  const [formData, setFormData] = useState<FormData>({
     title: '',
-    date: '',
     content: '',
+    date: new Date(),
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setData({ ...data, [e.target.name]: e.target.value });
+  const { title, date, content } = formData;
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+  ) => {
+    const { name, value } = e.target;
+
+    setFormData((prevData: FormData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
-  const handleQuillEdit = (value: string) => {
-    setData((prev) => {
-      return {
-        ...prev,
-        content: value,
-      };
-    });
+  const handleDateChange = (changeDate: Date) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      date: changeDate,
+    }));
   };
+
+  const handleContentChange = (content: string) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      content,
+    }));
+  };
+
   const handleCancle = () => {
     const result = window.confirm('작성하던 것을 취소하겠습니까?');
     if (result) {
@@ -44,13 +61,21 @@ const Modify = ({
   };
 
   const handleSubmit = () => {
-    updateNoticeItem(id, data);
+    updateNoticeItem(id, formData);
 
     router.push(`http://localhost:3000/notice/${id}`);
   };
 
   useEffect(() => {
-    getNoticeItem(id).then(setData);
+    getNoticeItem(id).then(({ title, content, date }) => {
+      const parsedDate = new Date(date);
+
+      setFormData({
+        title,
+        content,
+        date: parsedDate,
+      });
+    });
   }, []);
 
   return (
@@ -61,12 +86,14 @@ const Modify = ({
           name="title"
           placeholder="제목"
           maxLength={100}
-          value={data.title}
+          value={title}
           onChange={handleChange}
         ></textarea>
       </div>
-      <div className="create-date">{/* <p>{date}</p> */}</div>
-      <Editor content={data.content} setContent={handleQuillEdit} />
+      <div className="create-date">
+        <DateEditor startDate={date} onChange={handleDateChange} />
+      </div>
+      <Editor content={content} setContent={handleContentChange} />
       <div className="button-box">
         <Button
           type="button"
