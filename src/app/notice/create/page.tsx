@@ -1,10 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import Button from '../../components/Button';
 import Editor from '../../components/Editor';
+import DateEditor from '@/app/components/DateEditor';
 
 import '../../styles/noticeWritePage.scss';
 
@@ -14,7 +15,7 @@ import { createNotice } from '@/app/utils/api';
 const Create = (): JSX.Element => {
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
-  const [date, setDate] = useState<string>('');
+  const [startDate, setStartDate] = useState<Date>(new Date());
 
   let id = uuidv4();
 
@@ -22,12 +23,6 @@ const Create = (): JSX.Element => {
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTitle(e.target.value);
-  };
-
-  const createDate = (): void => {
-    const date = new Date().toLocaleDateString('ko-KR');
-
-    setDate(date);
   };
 
   const handleSubmit = async () => {
@@ -38,7 +33,7 @@ const Create = (): JSX.Element => {
       const response = await createNotice({
         id,
         title,
-        date,
+        date: startDate.toLocaleDateString('ko-KR'),
         content,
       });
 
@@ -55,10 +50,6 @@ const Create = (): JSX.Element => {
     }
   };
 
-  useEffect(() => {
-    createDate();
-  }, []);
-
   return (
     <div className="notice-write-container">
       <h2 className="notice-heading">공지사항</h2>
@@ -71,7 +62,7 @@ const Create = (): JSX.Element => {
         ></textarea>
       </div>
       <div className="create-date">
-        <p>{date}</p>
+        <DateEditor startDate={startDate} onChange={setStartDate} />
       </div>
       <Editor content={content} setContent={setContent} />
       <div className="button-box">
