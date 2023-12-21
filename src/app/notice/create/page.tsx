@@ -83,7 +83,7 @@ const Create = (): JSX.Element => {
           name="title"
           placeholder="제목"
           maxLength={100}
-          onChange={(e) => handleChange(e)}
+          onChange={handleChange}
         ></textarea>
       </div>
       <div className="create-date">
