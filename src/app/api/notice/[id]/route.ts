@@ -1,9 +1,13 @@
 import { client } from '@/libs/client';
 import { NextResponse } from 'next/server';
 
-export const GET = async ({ params }: { params: { id: string } }) => {
+export const GET = async (
+  request: Request,
+  { params }: { params: { id: string } }
+) => {
   try {
     const { id } = params;
+    console.log(id);
     const post = await client.post.findUnique({
       where: {
         id,
@@ -52,7 +56,10 @@ export const PATCH = async (
   }
 };
 
-export const DELETE = async ({ params }: { params: { id: string } }) => {
+export const DELETE = async (
+  request: Request,
+  { params }: { params: { id: string } }
+) => {
   try {
     const { id } = params;
 
