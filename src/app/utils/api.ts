@@ -4,19 +4,18 @@ import { Notice, FormData } from '@/types/notice';
 
 export const getNoticeList = async () => {
   try {
-    const response = await axios.get('http://localhost:9999/notice');
+    const response = await axios.get('/api/notice');
     return response.data;
   } catch (error) {
     console.error(error);
   }
 };
 
-export const createNotice = async ({ id, title, date, content }: Notice) => {
+export const createNotice = async ({ title, date, content }: FormData) => {
   try {
     const response = await axios.post(
-      `http://localhost:9999/notice/`,
+      `/api/notice`,
       {
-        id,
         title,
         date,
         content,
@@ -36,7 +35,7 @@ export const createNotice = async ({ id, title, date, content }: Notice) => {
 
 export const getNoticeItem = async (id: string) => {
   try {
-    const response = await axios.get(`http://localhost:9999/notice/${id}`);
+    const response = await axios.get(`/api/notice/${id}`);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -45,10 +44,7 @@ export const getNoticeItem = async (id: string) => {
 
 export const updateNoticeItem = async (id: string, data: FormData) => {
   try {
-    const response = await axios.patch(
-      `http://localhost:9999/notice/${id}`,
-      data
-    );
+    const response = await axios.patch(`/api/notice/${id}`, data);
   } catch (error) {
     console.error(error);
   }
@@ -56,7 +52,7 @@ export const updateNoticeItem = async (id: string, data: FormData) => {
 
 export const deleteNoticeItem = async (id: string) => {
   try {
-    const response = await axios.delete(`http://localhost:9999/notice/${id}`);
+    const response = await axios.delete(`/api/notice/${id}`);
 
     return response;
   } catch (error) {
