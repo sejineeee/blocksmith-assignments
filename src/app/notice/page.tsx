@@ -1,21 +1,21 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import axios from "axios";
+import axios from 'axios';
 
-import Input from "../components/Input";
-import Table from "../components/Table";
-import EmptyMessage from "../components/EmptyMessage";
+import Input from '../components/Input';
+import Table from '../components/Table';
+import EmptyMessage from '../components/EmptyMessage';
 
-import "../styles/noticePage.scss";
+import '../styles/noticePage.scss';
 
 const Notice = (): JSX.Element => {
   const [list, setList] = useState([]);
 
   const getNoticeList = async () => {
     try {
-      const response = await axios.get("http://localhost:9999/notice");
+      const response = await axios.get('http://localhost:3000/api/notice');
 
       setList(response.data);
     } catch (error) {
