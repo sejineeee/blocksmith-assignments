@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-import axios from 'axios';
+import { getNoticeList } from '../utils/api';
 
 import Input from '../components/Input';
 import Table from '../components/Table';
@@ -13,18 +13,8 @@ import '../styles/noticePage.scss';
 const Notice = (): JSX.Element => {
   const [list, setList] = useState([]);
 
-  const getNoticeList = async () => {
-    try {
-      const response = await axios.get('http://localhost:3000/api/notice');
-
-      setList(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   useEffect(() => {
-    getNoticeList();
+    getNoticeList().then(setList);
   }, []);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {};
