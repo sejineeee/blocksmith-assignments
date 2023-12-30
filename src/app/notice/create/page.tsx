@@ -7,7 +7,6 @@ import Button from '../../components/Button';
 import Editor from '../../components/Editor';
 import DateEditor from '@/app/components/DateEditor';
 
-import { v4 as uuidv4 } from 'uuid';
 import { createNotice } from '@/app/utils/api';
 
 import { FormData } from '@/types/notice';
@@ -56,13 +55,12 @@ const Create = (): JSX.Element => {
       return;
     } else {
       const response = await createNotice({
-        id: uuidv4(),
         title,
         date,
         content,
       });
 
-      if (response.status === 200 || response.status === 201) {
+      if (response?.status === 200 || response?.status === 201) {
         router.push('/notice');
       }
     }
