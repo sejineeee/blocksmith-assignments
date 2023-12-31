@@ -17,10 +17,10 @@ const Create = (): JSX.Element => {
   const [formData, setFormData] = useState<FormData>({
     title: '',
     content: '',
-    date: new Date(),
+    customDate: new Date(),
   });
 
-  const { title, content, date } = formData;
+  const { title, content, customDate } = formData;
 
   const router = useRouter();
 
@@ -35,10 +35,10 @@ const Create = (): JSX.Element => {
     }));
   };
 
-  const handleDateChange = (date: Date) => {
+  const handleDateChange = (customDate: Date) => {
     setFormData((prevData) => ({
       ...prevData,
-      date,
+      customDate,
     }));
   };
 
@@ -56,7 +56,7 @@ const Create = (): JSX.Element => {
     } else {
       const response = await createNotice({
         title,
-        date,
+        customDate,
         content,
       });
 
@@ -85,7 +85,7 @@ const Create = (): JSX.Element => {
         ></textarea>
       </div>
       <div className="create-date">
-        <DateEditor startDate={date} onChange={handleDateChange} />
+        <DateEditor startDate={customDate} onChange={handleDateChange} />
       </div>
       <Editor content={content} setContent={handleContentChange} />
       <div className="button-box">
