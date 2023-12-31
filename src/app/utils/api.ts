@@ -11,13 +11,17 @@ export const getNoticeList = async () => {
   }
 };
 
-export const createNotice = async ({ title, date, content }: FormData) => {
+export const createNotice = async ({
+  title,
+  customDate,
+  content,
+}: FormData) => {
   try {
     const response = await axios.post(
       `/api/notice`,
       {
         title,
-        date,
+        customDate,
         content,
       },
       {
