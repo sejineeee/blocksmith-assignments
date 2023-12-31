@@ -7,6 +7,6 @@ export interface Notice {
 
 export interface FormData {
   title: string;
-  date: Date;
+  customDate: Date;
   content: string;
 }
