@@ -14,12 +14,13 @@ export const GET = async () => {
 export const POST = async (request: Request) => {
   try {
     const body = await request.json();
-    const { title, content } = body;
+    const { title, content, customDate } = body;
 
     const newPost = await client.post.create({
       data: {
         title,
         content,
+        customDate,
       },
     });
 
