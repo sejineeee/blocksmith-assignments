@@ -31,7 +31,7 @@ export const PATCH = async (
     const { id } = params;
 
     const body = await request.json();
-    const { title, content } = body;
+    const { title, content, customDate } = body;
 
     const updatePost = await client.post.update({
       where: {
@@ -40,6 +40,7 @@ export const PATCH = async (
       data: {
         title,
         content,
+        customDate,
       },
     });
 
