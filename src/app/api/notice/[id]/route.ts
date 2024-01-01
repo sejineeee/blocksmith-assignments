@@ -7,7 +7,7 @@ export const GET = async (
 ) => {
   try {
     const { id } = params;
-    console.log(id);
+
     const post = await client.post.findUnique({
       where: {
         id,
