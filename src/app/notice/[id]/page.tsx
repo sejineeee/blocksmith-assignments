@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 
 import Button from '../../components/Button';
-import { Notice } from '@/types/notice';
+import { FormData } from '@/types/notice';
 
 import { deleteNoticeItem, getNoticeItem } from '@/app/utils/api';
 
@@ -16,18 +16,24 @@ const DetailPage = ({
 }: {
   params: { id: string };
 }): JSX.Element => {
-  const [data, setData] = useState<Notice>({
-    id: '',
+  const [data, setData] = useState<FormData>({
     title: '',
-    date: '',
     content: '',
+    customDate: new Date(),
   });
 
   const router = useRouter();
   const path = usePathname();
 
+  const { title, content, customDate } = data;
+
   useEffect(() => {
-    getNoticeItem(id).then(setData);
+    getNoticeItem(id).then((noticeItemData) => {
+      setData({
+        ...noticeItemData,
+        customDate: new Date(noticeItemData.customDate),
+      });
+    });
   }, []);
 
   const handleDelete = async () => {
@@ -64,12 +70,12 @@ const DetailPage = ({
     <div className="notice-detail-page">
       <h2 className="detail-page-header">공지사항</h2>
       <div className="notice-detail-meta">
-        <p className="title">{data.title}</p>
-        <p className="created-at">{data.date}</p>
+        <p className="title">{title}</p>
+        <p className="created-at">{customDate.toLocaleString('ko-KR')}</p>
       </div>
       <div
         className="content ql-editor"
-        dangerouslySetInnerHTML={{ __html: data.content }}
+        dangerouslySetInnerHTML={{ __html: content }}
       ></div>
       <div className="buttons">
         <Button
