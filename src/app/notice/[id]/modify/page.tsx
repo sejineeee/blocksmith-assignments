@@ -23,10 +23,10 @@ const Modify = ({
   const [formData, setFormData] = useState<FormData>({
     title: '',
     content: '',
-    date: new Date(),
+    customDate: new Date(),
   });
 
-  const { title, date, content } = formData;
+  const { title, customDate, content } = formData;
 
   const handleChange = (
     e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
@@ -42,7 +42,7 @@ const Modify = ({
   const handleDateChange = (changeDate: Date) => {
     setFormData((prevData) => ({
       ...prevData,
-      date: changeDate,
+      customDate: changeDate,
     }));
   };
 
@@ -63,17 +63,15 @@ const Modify = ({
   const handleSubmit = () => {
     updateNoticeItem(id, formData);
 
-    router.push(`http://localhost:3000/notice/${id}`);
+    router.push(`/notice/${id}`);
   };
 
   useEffect(() => {
-    getNoticeItem(id).then(({ title, content, date }) => {
-      const parsedDate = new Date(date);
-
+    getNoticeItem(id).then(({ title, content, customDate }) => {
       setFormData({
         title,
         content,
-        date: parsedDate,
+        customDate: new Date(customDate),
       });
     });
   }, []);
@@ -91,7 +89,7 @@ const Modify = ({
         ></textarea>
       </div>
       <div className="create-date">
-        <DateEditor startDate={date} onChange={handleDateChange} />
+        <DateEditor startDate={customDate} onChange={handleDateChange} />
       </div>
       <Editor content={content} setContent={handleContentChange} />
       <div className="button-box">
