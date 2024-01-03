@@ -1,9 +1,29 @@
 import { client } from '@/libs/client';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-export const GET = async () => {
+export const GET = async (request: NextRequest) => {
+  const searchParams = request.nextUrl.searchParams;
+  const query = searchParams.get('value');
+
   try {
-    const posts = await client.post.findMany();
+    const posts = await client.post.findMany({
+      where: {
+        OR: [
+          {
+            title: {
+              contains: query ? query : '',
+              mode: 'insensitive',
+            },
+          },
+          {
+            content: {
+              contains: query ? query : '',
+              mode: 'insensitive',
+            },
+          },
+        ],
+      },
+    });
 
     return NextResponse.json(posts);
   } catch (error) {
