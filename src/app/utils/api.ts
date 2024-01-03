@@ -1,10 +1,11 @@
 import axios from 'axios';
 
-import { Notice, FormData } from '@/types/notice';
+import { FormData } from '@/types/notice';
 
 export const getNoticeList = async () => {
   try {
     const response = await axios.get('/api/notice');
+
     return response.data;
   } catch (error) {
     console.error(error);
@@ -30,8 +31,6 @@ export const createNotice = async ({
         },
       }
     );
-
-    return response;
   } catch (error) {
     console.error(error);
   }
@@ -40,6 +39,7 @@ export const createNotice = async ({
 export const getNoticeItem = async (id: string) => {
   try {
     const response = await axios.get(`/api/notice/${id}`);
+
     return response.data;
   } catch (error) {
     console.error(error);
