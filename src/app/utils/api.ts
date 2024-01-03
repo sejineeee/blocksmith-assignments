@@ -63,3 +63,13 @@ export const deleteNoticeItem = async (id: string) => {
     console.error(error);
   }
 };
+
+export const getSearchNoticeItem = async (searchValue: string) => {
+  try {
+    const response = await axios.get(`/api/notice?value=${searchValue}`);
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
