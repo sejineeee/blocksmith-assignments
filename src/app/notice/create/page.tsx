@@ -53,16 +53,20 @@ const Create = (): JSX.Element => {
     if (!title || !content) {
       // TODO : 에러 핸들링 예정
       return;
-    } else {
+    }
+
+    try {
       const response = await createNotice({
         title,
         customDate,
         content,
       });
 
-      if (response?.status === 200 || response?.status === 201) {
+      if (response.status === 200 || response.status === 201) {
         router.push('/notice');
       }
+    } catch (error) {
+      console.error();
     }
   };
 
