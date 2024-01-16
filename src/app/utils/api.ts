@@ -17,23 +17,17 @@ export const createNotice = async ({
   customDate,
   content,
 }: FormData) => {
-  try {
-    const response = await axios.post(
-      `/api/notice`,
-      {
-        title,
-        customDate,
-        content,
+  const response = await axios.post(
+    `/api/notice`,
+    { title, customDate, content },
+    {
+      headers: {
+        'Content-Type': 'application/json',
       },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
-  } catch (error) {
-    console.error(error);
-  }
+    }
+  );
+
+  return response;
 };
 
 export const getNoticeItem = async (id: string) => {
@@ -47,11 +41,9 @@ export const getNoticeItem = async (id: string) => {
 };
 
 export const updateNoticeItem = async (id: string, data: FormData) => {
-  try {
-    const response = await axios.patch(`/api/notice/${id}`, data);
-  } catch (error) {
-    console.error(error);
-  }
+  const response = await axios.patch(`/api/notice/${id}`, data);
+
+  return response;
 };
 
 export const deleteNoticeItem = async (id: string) => {
