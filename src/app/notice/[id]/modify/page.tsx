@@ -60,10 +60,23 @@ const Modify = ({
     }
   };
 
-  const handleSubmit = () => {
-    updateNoticeItem(id, formData);
+  const handleSubmit = async () => {
+    const contentWithoutTags = content.replace(/<\/?[^>]+(>|$)/g, '').trim();
 
-    router.push(`/notice/${id}`);
+    if (!title || !contentWithoutTags) {
+      // TODO : 에러 핸들링 예정
+      return;
+    }
+
+    try {
+      const response = await updateNoticeItem(id, formData);
+
+      if (response.status === 200) {
+        router.push(`/notice/${id}`);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
