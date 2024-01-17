@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import "../styles/input.scss";
+import '../styles/input.scss';
 
 interface InputProps {
   type: string;
@@ -8,6 +8,7 @@ interface InputProps {
   placeholder: string;
   disabled: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   magnifier: boolean;
 }
 
@@ -17,6 +18,7 @@ const Input = ({
   placeholder,
   disabled,
   onChange,
+  onClick,
   magnifier,
 }: InputProps): JSX.Element => {
   return (
@@ -28,9 +30,9 @@ const Input = ({
         disabled={disabled}
         onChange={onChange}
       />
-      {
-        magnifier && <button className="magnifier" type="button"></button>
-      }
+      {magnifier && (
+        <button className="magnifier" type="button" onClick={onClick}></button>
+      )}
     </div>
   );
 };

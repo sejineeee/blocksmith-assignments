@@ -1,8 +1,10 @@
 export interface Notice {
   id: string;
   title: string;
-  date: Date;
   content: string;
+  customDate: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface FormData {

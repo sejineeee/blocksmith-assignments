@@ -32,6 +32,8 @@
   .notice-table {
     border-top: 1px solid #dedede;
     border-bottom: 1px solid #dedede;
+    width: 100%;
+
     .table-row {
       display: flex;
       flex-direction: column;
@@ -39,6 +41,11 @@
       align-items: flex-start;
       gap: 12px;
       align-self: stretch;
+
+      &:hover {
+        cursor: pointer;
+        background-color: #eff0f3;
+      }
 
       .title {
         color: var(--default-bk, #222);
