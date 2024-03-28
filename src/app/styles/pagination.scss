@@ -1,0 +1,17 @@
+.pagination {
+  width: 324px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 32px auto 0;
+  .page-list {
+    display: flex;
+    li {
+      button {
+        width: 36px;
+        height: 36px;
+      }
+    }
+  }
+}
