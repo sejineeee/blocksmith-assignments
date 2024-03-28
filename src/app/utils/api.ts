@@ -65,3 +65,13 @@ export const getSearchNoticeItem = async (searchValue: string) => {
     console.error(error);
   }
 };
+
+export const getPaginatedNoticeList = async (pageNumber: number) => {
+  try {
+    const response = await axios.get(`/api/notice?page=${pageNumber}`);
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
