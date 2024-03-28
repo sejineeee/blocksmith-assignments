@@ -7,9 +7,11 @@ export const GET = async (request: NextRequest) => {
   const page = parseInt(searchParams.get('page') ?? '1', 10);
 
   const PERPAGE = 10;
+  const skip = (page - 1) * PERPAGE;
 
   try {
     const posts = await client.post.findMany({
+      skip,
       take: PERPAGE,
       orderBy: { createdAt: 'desc' },
       where: {
