@@ -1,12 +1,14 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 
-import { getNoticeList, getSearchNoticeItem } from '../utils/api';
+import { getPaginatedNoticeList, getSearchNoticeItem } from '../utils/api';
 
 import Input from '../components/Input';
 import Table from '../components/Table';
 import EmptyMessage from '../components/EmptyMessage';
+import Pagination from '../components/Pagination';
 
 import '../styles/noticePage.scss';
 
@@ -15,8 +17,12 @@ const Notice = (): JSX.Element => {
   const [searchValue, setSearchValue] = useState<string>('');
   const [searchResultList, setSearchResultList] = useState([]);
 
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const page = Number(searchParams.get('page') ?? 1);
+
   useEffect(() => {
-    getNoticeList().then(setList);
+    getPaginatedNoticeList(page).then(setList);
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,6 +33,10 @@ const Notice = (): JSX.Element => {
 
   const handleClick = () => {
     getSearchNoticeItem(searchValue).then(setSearchResultList);
+  };
+
+  const handleClickPagination = (pageNumber: number) => {
+    router.push(`/notice?page=${pageNumber}`);
   };
 
   return (
@@ -50,6 +60,7 @@ const Notice = (): JSX.Element => {
       ) : (
         <EmptyMessage message="공지사항이 없습니다." />
       )}
+      <Pagination list={list} onClick={handleClickPagination} />
     </div>
   );
 };
