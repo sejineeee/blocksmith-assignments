@@ -4,9 +4,14 @@ import { NextRequest, NextResponse } from 'next/server';
 export const GET = async (request: NextRequest) => {
   const searchParams = request.nextUrl.searchParams;
   const query = searchParams.get('value');
+  const page = parseInt(searchParams.get('page') ?? '1', 10);
+
+  const PERPAGE = 10;
 
   try {
     const posts = await client.post.findMany({
+      take: PERPAGE,
+      orderBy: { createdAt: 'desc' },
       where: {
         OR: [
           {
