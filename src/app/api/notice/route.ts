@@ -32,7 +32,27 @@ export const GET = async (request: NextRequest) => {
       },
     });
 
-    return NextResponse.json(posts);
+    const totalPostCount = await client.post.count({
+      orderBy: { createdAt: 'desc' },
+      where: {
+        OR: [
+          {
+            title: {
+              contains: query ? query : '',
+              mode: 'insensitive',
+            },
+          },
+          {
+            content: {
+              contains: query ? query : '',
+              mode: 'insensitive',
+            },
+          },
+        ],
+      },
+    });
+
+    return NextResponse.json({ posts, totalPostCount });
   } catch (error) {
     return NextResponse.json({ message: 'GET ERROR', error }, { status: 500 });
   }
