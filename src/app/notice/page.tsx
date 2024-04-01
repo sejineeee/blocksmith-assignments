@@ -3,7 +3,11 @@
 import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-import { getPaginatedNoticeList, getSearchNoticeItem } from '../utils/api';
+import {
+  getPaginatedNoticeList,
+  getSearchNoticeItem,
+  getTotalNoticeListCount,
+} from '../utils/api';
 
 import Input from '../components/Input';
 import Table from '../components/Table';
@@ -16,6 +20,7 @@ const Notice = (): JSX.Element => {
   const [list, setList] = useState([]);
   const [searchValue, setSearchValue] = useState<string>('');
   const [searchResultList, setSearchResultList] = useState([]);
+  const [totalNoticeListCount, setTotalNoticeListCount] = useState(1);
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -23,7 +28,8 @@ const Notice = (): JSX.Element => {
 
   useEffect(() => {
     getPaginatedNoticeList(page).then(setList);
-  }, []);
+    getTotalNoticeListCount().then(setTotalNoticeListCount);
+  }, [page]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -60,7 +66,10 @@ const Notice = (): JSX.Element => {
       ) : (
         <EmptyMessage message="공지사항이 없습니다." />
       )}
-      <Pagination list={list} onClick={handleClickPagination} />
+      <Pagination
+        totalNoticeListCount={totalNoticeListCount}
+        onClick={handleClickPagination}
+      />
     </div>
   );
 };
