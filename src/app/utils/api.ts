@@ -6,7 +6,7 @@ export const getNoticeList = async () => {
   try {
     const response = await axios.get('/api/notice');
 
-    return response.data;
+    return response.data.posts;
   } catch (error) {
     console.error(error);
   }
@@ -70,7 +70,17 @@ export const getPaginatedNoticeList = async (pageNumber: number) => {
   try {
     const response = await axios.get(`/api/notice?page=${pageNumber}`);
 
-    return response.data;
+    return response.data.posts;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getTotalNoticeListCount = async () => {
+  try {
+    const response = await axios.get('/api/notice');
+
+    return response.data.totalPostCount;
   } catch (error) {
     console.error(error);
   }
