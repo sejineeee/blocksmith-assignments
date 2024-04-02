@@ -2,8 +2,8 @@ import Image from 'next/image';
 
 import '../styles/pagination.scss';
 
-const Pagination = ({ list, onClick }): JSX.Element => {
-  const countOfPages = Math.ceil(list.length / 10);
+const Pagination = ({ totalNoticeListCount, onClick }): JSX.Element => {
+  const countOfPages = Math.ceil(totalNoticeListCount / 10);
   const pageNumbers = Array.from(
     { length: countOfPages },
     (_, index) => index + 1
