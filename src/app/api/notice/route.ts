@@ -4,9 +4,16 @@ import { NextRequest, NextResponse } from 'next/server';
 export const GET = async (request: NextRequest) => {
   const searchParams = request.nextUrl.searchParams;
   const query = searchParams.get('value');
+  const page = parseInt(searchParams.get('page') ?? '1', 10);
+
+  const PERPAGE = 10;
+  const skip = (page - 1) * PERPAGE;
 
   try {
     const posts = await client.post.findMany({
+      skip,
+      take: PERPAGE,
+      orderBy: { createdAt: 'desc' },
       where: {
         OR: [
           {
@@ -25,7 +32,27 @@ export const GET = async (request: NextRequest) => {
       },
     });
 
-    return NextResponse.json(posts);
+    const totalPostCount = await client.post.count({
+      orderBy: { createdAt: 'desc' },
+      where: {
+        OR: [
+          {
+            title: {
+              contains: query ? query : '',
+              mode: 'insensitive',
+            },
+          },
+          {
+            content: {
+              contains: query ? query : '',
+              mode: 'insensitive',
+            },
+          },
+        ],
+      },
+    });
+
+    return NextResponse.json({ posts, totalPostCount });
   } catch (error) {
     return NextResponse.json({ message: 'GET ERROR', error }, { status: 500 });
   }
