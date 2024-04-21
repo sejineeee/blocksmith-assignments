@@ -3,15 +3,16 @@ import Image from 'next/image';
 import '../styles/pagination.scss';
 
 interface PaginationProps {
-  totalNoticeListCount: number;
+  countOfPages: number;
   onClick: (pageNumber: number) => void;
+  onClickArrow: (buttonName: string) => void;
 }
 
 const Pagination = ({
-  totalNoticeListCount,
+  countOfPages,
   onClick,
+  onClickArrow,
 }: PaginationProps): JSX.Element => {
-  const countOfPages = Math.ceil(totalNoticeListCount / 10);
   const pageNumbers = Array.from(
     { length: countOfPages },
     (_, index) => index + 1
@@ -19,7 +20,10 @@ const Pagination = ({
 
   return (
     <div className="pagination">
-      <button className="button-previous-group">
+      <button
+        className="button-previous-group"
+        onClick={() => onClickArrow('prevGroup')}
+      >
         <Image
           width={32}
           height={32}
@@ -27,7 +31,7 @@ const Pagination = ({
           src="/assets/images/arrow-left-double-line.svg"
         />
       </button>
-      <button className="button-previous">
+      <button className="button-previous" onClick={() => onClickArrow('prev')}>
         <Image
           height={32}
           width={32}
@@ -44,7 +48,7 @@ const Pagination = ({
           );
         })}
       </ol>
-      <button className="button">
+      <button className="button-next" onClick={() => onClickArrow('next')}>
         <Image
           height={32}
           width={32}
@@ -52,7 +56,10 @@ const Pagination = ({
           src="/assets/images/arrow-right-s-line.svg"
         />
       </button>
-      <button>
+      <button
+        className="button-next-group"
+        onClick={() => onClickArrow('nextGroup')}
+      >
         <Image
           height={32}
           width={32}
