@@ -14,6 +14,8 @@ import Table from '../components/Table';
 import EmptyMessage from '../components/EmptyMessage';
 import Pagination from '../components/Pagination';
 
+import { ArrowButtons } from '@/types/button';
+
 import '../styles/noticePage.scss';
 
 const Notice = (): JSX.Element => {
@@ -25,6 +27,8 @@ const Notice = (): JSX.Element => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const page = Number(searchParams.get('page') ?? 1);
+
+  const countOfPages = Math.ceil(totalNoticeListCount / 10);
 
   useEffect(() => {
     getPaginatedNoticeList(page).then(setList);
@@ -43,6 +47,47 @@ const Notice = (): JSX.Element => {
 
   const handleClickPagination = (pageNumber: number) => {
     router.push(`/notice?page=${pageNumber}`);
+  };
+
+  const handleClickArrowButton = (buttonName: string) => {
+    const arrowButtons: ArrowButtons = {
+      prev() {
+        if (page <= 1) {
+          return;
+        }
+
+        router.push(`/notice?page=${page - 1}`);
+      },
+
+      prevGroup() {
+        if (page <= 10) {
+          return router.push('notice?page=1');
+        }
+
+        router.push(`notice?page=${page - 10}`);
+      },
+      next() {
+        if (countOfPages === page) {
+          return;
+        }
+
+        router.push(`notice?page=${page + 1}`);
+      },
+      nextGroup() {
+        if (page <= 10) {
+          return router.push(`notice?page=${countOfPages}`);
+        }
+
+        const nextGroupPage = page + 10;
+        if (nextGroupPage > countOfPages) {
+          return router.push(`notice?page=${countOfPages}`);
+        }
+
+        router.push(`notice?page=${nextGroupPage}`);
+      },
+    };
+
+    arrowButtons[buttonName]();
   };
 
   return (
@@ -67,8 +112,9 @@ const Notice = (): JSX.Element => {
         <EmptyMessage message="공지사항이 없습니다." />
       )}
       <Pagination
-        totalNoticeListCount={totalNoticeListCount}
+        countOfPages={countOfPages}
         onClick={handleClickPagination}
+        onClickArrow={handleClickArrowButton}
       />
     </div>
   );
