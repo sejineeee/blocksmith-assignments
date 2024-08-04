@@ -113,6 +113,7 @@ const Notice = (): JSX.Element => {
       )}
       <Pagination
         countOfPages={countOfPages}
+        activePage={page}
         onClick={handleClickPagination}
         onClickArrow={handleClickArrowButton}
       />

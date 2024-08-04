@@ -1,15 +1,23 @@
-import Image from 'next/image';
-
 import '../styles/pagination.scss';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faAnglesLeft,
+  faAngleLeft,
+  faAngleRight,
+  faAnglesRight,
+} from '@fortawesome/free-solid-svg-icons';
 
 interface PaginationProps {
   countOfPages: number;
+  activePage: number;
   onClick: (pageNumber: number) => void;
   onClickArrow: (buttonName: string) => void;
 }
 
 const Pagination = ({
   countOfPages,
+  activePage,
   onClick,
   onClickArrow,
 }: PaginationProps): JSX.Element => {
@@ -21,51 +29,42 @@ const Pagination = ({
   return (
     <div className="pagination">
       <button
-        className="button-previous-group"
+        className="arrow button-previous-group"
         onClick={() => onClickArrow('prevGroup')}
       >
-        <Image
-          width={32}
-          height={32}
-          alt="이전 그룹 아이콘"
-          src="/assets/images/arrow-left-double-line.svg"
-        />
+        <FontAwesomeIcon icon={faAnglesLeft} />
       </button>
-      <button className="button-previous" onClick={() => onClickArrow('prev')}>
-        <Image
-          height={32}
-          width={32}
-          alt="이전 페이지 아이콘"
-          src="/assets/images/arrow-left-s-line.svg"
-        />
+      <button
+        className="arrow button-previous"
+        onClick={() => onClickArrow('prev')}
+      >
+        <FontAwesomeIcon icon={faAngleLeft} />
       </button>
       <ol className="page-list">
         {pageNumbers.map((pageNumber) => {
           return (
             <li key={pageNumber}>
-              <button onClick={() => onClick(pageNumber)}>{pageNumber}</button>
+              <button
+                onClick={() => onClick(pageNumber)}
+                className={pageNumber === activePage ? 'active' : ''}
+              >
+                {pageNumber}
+              </button>
             </li>
           );
         })}
       </ol>
-      <button className="button-next" onClick={() => onClickArrow('next')}>
-        <Image
-          height={32}
-          width={32}
-          alt="다음 페이지 아이콘"
-          src="/assets/images/arrow-right-s-line.svg"
-        />
+      <button
+        className="arrow button-next"
+        onClick={() => onClickArrow('next')}
+      >
+        <FontAwesomeIcon icon={faAngleRight} />
       </button>
       <button
-        className="button-next-group"
+        className="arrow button-next-group"
         onClick={() => onClickArrow('nextGroup')}
       >
-        <Image
-          height={32}
-          width={32}
-          alt="다음 그룹 아이콘"
-          src="/assets/images/arrow-right-double-line.svg"
-        />
+        <FontAwesomeIcon icon={faAnglesRight} />
       </button>
     </div>
   );
